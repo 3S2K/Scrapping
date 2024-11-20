@@ -10,7 +10,7 @@ import re
 
 class YouTubeCrawler(BaseCrawler):
     def open_shorts_channel(self, url):
-        self.driver.get(url)
+        self.open_page(url)
         time.sleep(2)
 
     def click_first_shorts(self):
@@ -32,7 +32,7 @@ class YouTubeCrawler(BaseCrawler):
 
     def click_next_shorts(self):
         try:
-            current_url = self.driver.current_url
+            current_url = self.get_current_url()
             next_button = self.driver.find_element(By.ID, "navigation-button-down")
             next_button.click()
             WebDriverWait(self.driver, 10).until(
