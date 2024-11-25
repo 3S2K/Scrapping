@@ -17,8 +17,6 @@ class YouTubeScraper:
         captions_data = []
 
         for i in range(num_shorts):
-            if self.youtube_crawler.avoid_advertisement():
-                 self.youtube_crawler.click_next_shorts()
             current_url = self.youtube_crawler.get_current_url()
             captions = self.transcript_extractor.fetch_youtube_captions(current_url)
             captions_data.append(captions)

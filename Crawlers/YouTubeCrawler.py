@@ -42,6 +42,16 @@ class YouTubeCrawler(BaseCrawler):
         except Exception as e:
             print(f"다음 버튼 클릭 실패: {e}")
 
+    def avoid_advertisement(self):
+        try:
+            sponsor = self.driver.find_element(By.CLASS_NAME, "badge-shape-wiz__text")
+            if sponsor in sponsor.text:
+                self.click_next_shorts()
+        except Exception as e:
+            print(f"광고 건너뛰기 실패 또는 광고 없음 : {e}")
+
+
+
 
 class YouTubeTranscriptExtractor:
     @staticmethod
