@@ -72,6 +72,3 @@ class YouTubeTranscriptExtractor:
 
         except Exception as e:
             return f"자막을 가져오는 중 오류 발생: {e}"
-
-
-
