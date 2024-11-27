@@ -23,6 +23,5 @@ class YouTubeScraper:
                 if title and link:
                     self.captions_data[title] = link
             print(len(shorts_items))
-            print("---------------------------------------------------------------")
         self.youtube_crawler.quit()
         return self.captions_data
