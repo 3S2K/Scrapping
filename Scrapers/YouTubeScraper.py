@@ -5,25 +5,24 @@ class YouTubeScraper:
     def __init__(self, driver_path):
         self.youtube_crawler = YouTubeCrawler(driver_path)
         self.transcript_extractor = YouTubeTranscriptExtractor()
+        self.captions_data = {}
 
-    def scrape_shorts(self, channel_name, youtube_urls, num_shorts=3):
-        if channel_name not in youtube_urls:
-            raise ValueError("유효한 채널 이름이 아닙니다.")
+    def scrape_shorts(self, youtube_urls):
+        for channel_name in youtube_urls:
+            if channel_name not in youtube_urls:
+                raise ValueError("유효한 채널 이름이 아닙니다.")
 
-        channel_url = youtube_urls[channel_name]
-        self.youtube_crawler.open_page(channel_url)
-        self.youtube_crawler.click_first_shorts()
+            channel_url = youtube_urls[channel_name]
+            self.youtube_crawler.open_page(channel_url)
+            self.youtube_crawler.scroll_until_end()
 
-        captions_data = {}
+            shorts_items = self.youtube_crawler.get_all_shorts_elements()
 
-        for i in range(num_shorts):
-            current_url = self.youtube_crawler.get_current_url()
-            captions = self.transcript_extractor.fetch_youtube_captions(current_url)
-            current_title = self.youtube_crawler.get_current_title()
-            captions_data[current_title] = captions
-            print(f"현재 URL: {current_url}")
-            print(f"현재 제목: {current_title}")
-            self.youtube_crawler.click_next_shorts()
-
+            for item in shorts_items:
+                title, link = self.youtube_crawler.get_title_and_link(item)
+                if title and link:
+                    self.captions_data[title] = link
+            print(len(shorts_items))
+            print("---------------------------------------------------------------")
         self.youtube_crawler.quit()
-        return captions_data
+        return self.captions_data
