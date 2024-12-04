@@ -12,8 +12,5 @@ class BaseCrawler:
         self.driver.get(url)
         time.sleep(2)
 
-    def get_current_url(self):
-        return self.driver.current_url
-
     def quit(self):
         self.driver.quit()

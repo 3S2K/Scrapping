@@ -1,5 +1,6 @@
 import time
 from Crawlers.NewsCrawler import NewsCrawler
+import copy
 
 
 class NewsScraper:
@@ -14,13 +15,14 @@ class NewsScraper:
         self.news_crawler.scroll_down()
         time.sleep(2)
         for index in range(10):
+            index_dict = dict()
             if index == 5:
                 self.news_crawler.move_next_slide()
             news_aria_title = self.news_crawler.get_aria_titles(index)
             time.sleep(2)
-            self.news_crawler.get_main_news()
+            self.news_crawler.get_main_news(index_dict)
             time.sleep(2)
-            self.news_crawler.get_sub_news()
-            self.final_dict[news_aria_title] = self.news_crawler.news_dict
+            self.news_crawler.get_sub_news(index_dict)
+            self.final_dict[news_aria_title] = copy.deepcopy(index_dict)
         self.news_crawler.quit()
         return self.final_dict
