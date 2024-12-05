@@ -1,19 +1,13 @@
 from multiprocessing import Process
 from Scrapers.YouTubeScraper import YouTubeScraper
 from Scrapers.NewsScraper import NewsScraper
-from Parsers.YouTubeParser import YouTubeTranscriptExtractor
 import json
 
 
 def execute_youtube_scraper(driver_path: str, youtube_urls: dict, output_file: str):
     youtube_scraper = YouTubeScraper(driver_path)
-    youtube_transcript_extractor = YouTubeTranscriptExtractor()
     youtube = youtube_scraper.scrape_shorts(youtube_urls)
     print("수집된 유튜브 데이터:", youtube)
-
-
-
-
     # JSON 파일로 저장
     with open(output_file, 'w', encoding='utf-8') as file:
         json.dump(youtube, file, ensure_ascii=False, indent=4)

@@ -32,3 +32,16 @@ class YouTubeTranscriptExtractor:
         except Exception as e:
             return f"자막을 가져오는 중 오류 발생: {e}"
 
+
+def is_scraped(data, channel_name, scraping_title):
+    if channel_name in data:
+        videos = data[channel_name]
+        for title in videos:
+            if title == scraping_title:
+                return True
+    return False
+
+
+
+
+
