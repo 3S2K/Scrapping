@@ -4,10 +4,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from Crawlers.BaseCrawler import BaseCrawler
 import time
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.remote.webelement import WebElement
 
 
 class YouTubeCrawler(BaseCrawler):
-    def get_all_shorts_elements(self):
+    def get_all_shorts_elements(self) -> list:
         try:
             shorts_elements = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_all_elements_located((By.TAG_NAME, "ytd-rich-item-renderer")))
@@ -16,7 +17,7 @@ class YouTubeCrawler(BaseCrawler):
             print("숏츠 요소를 찾을 수 없습니다.")
             return []
 
-    def get_title_and_link(self, item):
+    def get_title_and_link(self, item: WebElement) -> tuple:
         try:
             # 링크 가져오기 (각 숏츠의 href 속성 추출)
             link_element = item.find_element(By.CSS_SELECTOR, "a[href^='/shorts']")

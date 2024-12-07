@@ -7,26 +7,24 @@ import json
 def execute_youtube_scraper(driver_path: str, youtube_urls: dict, output_file: str):
     youtube_scraper = YouTubeScraper(driver_path)
     youtube = youtube_scraper.scrape_shorts(youtube_urls)
-    print("수집된 유튜브 데이터:", youtube)
     # JSON 파일로 저장
     with open(output_file, 'w', encoding='utf-8') as file:
         json.dump(youtube, file, ensure_ascii=False, indent=4)
 
 
-def execute_news_scraper(driver_path, news_url, output_file):
+def execute_news_scraper(driver_path: str, news_url: str, output_file: str):
     news_scraper = NewsScraper(driver_path)
     news = news_scraper.scrape_news(news_url)
-    print("수집된 뉴스 데이터:", news)
     # JSON 파일로 저장
     with open(output_file, 'w', encoding='utf-8') as file:
         json.dump(news, file, ensure_ascii=False, indent=4)
 
 
 class ScraperManager:
-    def __init__(self, driver_path):
+    def __init__(self, driver_path: str):
         self.driver_path = driver_path
 
-    def start_scraping_processes(self, youtube_urls, news_url):
+    def start_scraping_processes(self, youtube_urls: dict, news_url: str):
         youtube_output_file = "data/youtube_data.json"
         news_output_file = "data/news_data.json"
 

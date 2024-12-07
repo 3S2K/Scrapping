@@ -5,7 +5,7 @@ import re
 
 class YouTubeTranscriptExtractor:
     @staticmethod
-    def get_youtube_video_id(url):
+    def get_youtube_video_id(url: str) -> str:
         video_id_match = re.search(r"(?:v=|youtu\.be/|embed/|shorts/)([a-zA-Z0-9_-]{11})", url)
         if video_id_match:
             return video_id_match.group(1)
@@ -13,7 +13,7 @@ class YouTubeTranscriptExtractor:
             raise ValueError("유효한 YouTube URL이 아닙니다.")
 
     @staticmethod
-    def fetch_youtube_captions(url):
+    def fetch_youtube_captions(url: str) -> str:
         try:
             video_id = YouTubeTranscriptExtractor.get_youtube_video_id(url)
             transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
@@ -33,7 +33,7 @@ class YouTubeTranscriptExtractor:
             return f"자막을 가져오는 중 오류 발생: {e}"
 
 
-def is_scraped(data, channel_name, scraping_title):
+def is_scraped(data: dict, channel_name: str, scraping_title: str) -> bool:
     if channel_name in data:
         videos = data[channel_name]
         for title in videos:

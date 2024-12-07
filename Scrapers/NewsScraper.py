@@ -4,11 +4,11 @@ import copy
 
 
 class NewsScraper:
-    def __init__(self, driver_path):
+    def __init__(self, driver_path: str):
         self.news_crawler = NewsCrawler(driver_path)
         self.final_dict = dict()
 
-    def scrape_news(self, news_url):
+    def scrape_news(self, news_url: str) -> dict:
         self.news_crawler.open_page(news_url)
         self.news_crawler.close_popup()
         self.news_crawler.maximize_window()

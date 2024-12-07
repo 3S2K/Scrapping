@@ -4,11 +4,11 @@ from selenium.webdriver.edge.service import Service
 
 
 class BaseCrawler:
-    def __init__(self, driver_path):
+    def __init__(self, driver_path: str):
         service = Service(executable_path=driver_path)
         self.driver = webdriver.Edge(service=service)
 
-    def open_page(self, url):
+    def open_page(self, url: str):
         self.driver.get(url)
         time.sleep(2)
 

@@ -4,12 +4,12 @@ import json
 
 
 class YouTubeScraper:
-    def __init__(self, driver_path):
+    def __init__(self, driver_path: str):
         self.youtube_crawler = YouTubeCrawler(driver_path)
         self.youtube_parser = YouTubeTranscriptExtractor()
         self.captions_data = {}
 
-    def scrape_shorts(self, youtube_urls):
+    def scrape_shorts(self, youtube_urls: dict) -> dict:
         try:
             with open("data/youtube_data.json", 'r', encoding='utf-8') as file:
                 data = json.load(file)
@@ -40,9 +40,9 @@ class YouTubeScraper:
                     caption_data[title] = caption
 
             if caption_data:
+                print(caption_data)
                 if channel_name in data:
                     updated_data = {**caption_data, **data[channel_name]}
-                    print(updated_data)
                     data[channel_name] = updated_data
                 else:
                     data[channel_name] = caption_data
